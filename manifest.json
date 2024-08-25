@@ -3,15 +3,14 @@
   "name": "moodle-to-latex",
   "description": "translates moodle html to latex syntax",
   "version": "1.0",
-  "action": {
-    "default_popup": "hello.html"
-  },
   "content_scripts": [
     {
-      "js": ["script.js"],
+      "js": ["script.js", "jquery-3.7.1.min.js"],
       "matches": [
         "https://moodle.telt.unsw.edu.au/mod/quiz/*"
       ]
     }
-  ]
+  ], "permissions": [
+  "downloads"
+]
 }
