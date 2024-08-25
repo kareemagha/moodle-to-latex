@@ -12,10 +12,14 @@ window.onload = function() {
         const node = textNodes[k];
 
         if (node.nodeType === Node.TEXT_NODE) {
-          allText += node.textContent;
+          // Add bold question mark after every '=' sign
+          allText += node.textContent.replace(/=/g, '=\\textbf{?}');
         } else if (node.nodeType === Node.ELEMENT_NODE) {
           if (node.tagName === 'SCRIPT') {
-            allText += node.textContent;
+            let scriptContent = node.textContent;
+            // Add new line before every '=' sign and a bold question mark after it
+            scriptContent = scriptContent.replace(/=/g, '\n=\\textbf{?}');
+            allText += `$${scriptContent}$`;
           } else if (node.tagName === 'STRONG') {
             const strongText = node.textContent.trim();
             if (!strongText.startsWith('Figure ')) {
@@ -23,10 +27,19 @@ window.onload = function() {
             } else {
               allText += strongText;
             }
+          } else if (node.tagName === 'IMG') {
+            // Download the image with the current Unix timestamp as the filename
+            const timestamp = Date.now().toString();
+            downloadImage(node.src, timestamp);
+            // Add the image reference to the text, with spaces before and after, centered
+            allText += `\n\n\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{${timestamp}.png}\n\\end{center}\n\n`;
           } else if (node.classList && node.classList.contains('nolink')) {
             const scriptTags = node.querySelectorAll('script');
             for (let l = 0; l < scriptTags.length; l++) {
-              allText += scriptTags[l].textContent;
+              let scriptContent = scriptTags[l].textContent;
+              // Add new line before every '=' sign and a bold question mark after it
+              scriptContent = scriptContent.replace(/=/g, '\n=\\textbf{?}');
+              allText += `$${scriptContent}$`;
             }
           }
         }
@@ -43,3 +56,37 @@ window.onload = function() {
       console.error('Could not copy text: ', err);
     });
 };
+
+// Function to download an image
+function downloadImage(url, filename) {
+  // Ensure the filename ends with .png
+  if (!filename.endsWith('.png')) {
+    filename += '.png';
+  }
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'blob';
+
+  xhr.onload = function() {
+    if (this.status === 200) {
+      const blob = this.response;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    } else {
+      console.error('Failed to download image:', url);
+    }
+  };
+
+  xhr.onerror = function() {
+    console.error('Error downloading image:', url);
+  };
+
+  xhr.send();
+}
