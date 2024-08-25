@@ -32,7 +32,7 @@ window.onload = function() {
             const timestamp = Date.now().toString();
             downloadImage(node.src, timestamp);
             // Add the image reference to the text, with spaces before and after, centered
-            allText += `\n\n\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{${timestamp}.png}\n\\end{center}\n\n`;
+            allText += `\n\n\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${timestamp}.png}\n\\end{center}\n\n`;
           } else if (node.classList && node.classList.contains('nolink')) {
             const scriptTags = node.querySelectorAll('script');
             for (let l = 0; l < scriptTags.length; l++) {
