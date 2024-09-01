@@ -1,6 +1,7 @@
 window.onload = function() {
   const mathjaxLoaderElements = document.getElementsByClassName('filter_mathjaxloader_equation');
-  let allText = '';
+  let allText = '\\subsection{ } \\\\ \n ';
+  let imageCounter = 1;  // Initialize an image counter
 
   for (let i = 0; i < mathjaxLoaderElements.length; i++) {
     const pTags = mathjaxLoaderElements[i].querySelectorAll('p');
@@ -17,34 +18,56 @@ window.onload = function() {
         } else if (node.nodeType === Node.ELEMENT_NODE) {
           if (node.tagName === 'SCRIPT') {
             let scriptContent = node.textContent;
-            // Add new line before every '=' sign and a bold question mark after it
-            scriptContent = scriptContent.replace(/=/g, '\n=\\textbf{?}');
-            allText += `$${scriptContent}$`;
+            // Check if it's a MathJax script or a math/tex script
+            if (node.type === 'math/tex') {
+              // Add new lines before and after the script content, and make it bold
+              allText += `\n\\textbf{$${scriptContent}$}\n`;
+            } else {
+              // For MathJax script: Add bold question mark after every '=' sign
+              scriptContent = scriptContent.replace(/=/g, '=\\textbf{?}');
+              // Add a newline before the '$$' only if there's an '=' in the content
+              if (scriptContent.includes('=')) {
+                allText += `\n$${scriptContent}$`;
+              } else {
+                allText += `$${scriptContent}$`;
+              }
+            }
           } else if (node.tagName === 'STRONG') {
             const strongText = node.textContent.trim();
-            if (!strongText.startsWith('Figure ')) {
-              allText += '\n\n' + strongText + '\n';
+             if (!strongText.startsWith('Figure ' || 'Part ')) {
+              allText += `\\\\` + '\n\n' + `\\textbf{`+ strongText + `}` + '\n';
             } else {
               allText += strongText;
             }
           } else if (node.tagName === 'IMG') {
-            // Download the image with the current Unix timestamp as the filename
+            // Download the image with the current Unix timestamp and a counter as the filename
             const timestamp = Date.now().toString();
-            downloadImage(node.src, timestamp);
+            const filename = `${timestamp}_${imageCounter}`;
+            downloadImage(node.src, filename);
             // Add the image reference to the text, with spaces before and after, centered
-            allText += `\n\n\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${timestamp}.png}\n\\end{center}\n\n`;
-          } else if (node.classList && node.classList.contains('nolink')) {
+            allText += `\n\n\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${filename}.png}\n\\end{center}\n\n`;
+            imageCounter++;  // Increment the image counter
+          } else if (node.tagName === 'INPUT' && node.type === 'text') {
+            // Replace input type='text' with three bold question marks
+            allText += '\\textbf{???}';
+          } else if (node.classList.contains('nolink')) {
             const scriptTags = node.querySelectorAll('script');
             for (let l = 0; l < scriptTags.length; l++) {
               let scriptContent = scriptTags[l].textContent;
-              // Add new line before every '=' sign and a bold question mark after it
-              scriptContent = scriptContent.replace(/=/g, '\n=\\textbf{?}');
-              allText += `$${scriptContent}$`;
+              // Add a newline before the '$$' only if there's an '=' in the content
+              if (scriptContent.includes('=')) {
+                allText += `\\\\ \n\n$${scriptContent}$`;
+              } else {
+                allText += `$${scriptContent}$`;
+              }
             }
           }
         }
       }
     }
+
+    allText += `\\\\ \\newpage \n\n`
+
   }
 
   // Copy all text to clipboard
