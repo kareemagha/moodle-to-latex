@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "dependencies": {
+    "chrome-types": "^0.1.324",
+    "tsc": "^2.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
