@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "dependencies": {
+    "chrome-types": "^0.1.324",
+    "dotenv": "^16.4.7",
+    "tsc": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
