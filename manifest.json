@@ -10,6 +10,7 @@
       "run_at": "document_end"
     }
   ], "permissions": [
-  "downloads"
-]
+      "downloads",
+      "activeTab"
+      ]
 }
