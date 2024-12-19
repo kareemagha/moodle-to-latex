@@ -12,7 +12,6 @@ const read_content = async function() {
                 let child = words.childNodes[g]
                 if (child.nodeType === Node.TEXT_NODE) {
                     question_text += child.nodeValue
-                    // console.log(words.childNodes[g].nodeValue)
                 } else if (child.nodeType === Node.ELEMENT_NODE) {
                     let flag = 0
                     if(child.childNodes.length > 0) {
@@ -21,7 +20,6 @@ const read_content = async function() {
                                 question_text = question_text + "\\textbf{" + child.textContent + "}"
                                 flag = 1
                             }
-                            
                             if (child.childNodes[0].nodeName === "IMG") {
                                 const img_element = child.childNodes[0] as HTMLImageElement;
                                 const image_src = img_element.src;
@@ -39,8 +37,6 @@ const read_content = async function() {
                         } else if (child.nodeName === "IMG") {
                             const img_element = child as HTMLImageElement;
                             const image_src = img_element.src;
-                            // const imageUrl = await upload_image(image_src);
-                            // question_text = question_text + `\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{${imageUrl}}\n\\end{center}`
                             let file_name = `${Date.now()}_${image_counter}`
                             downlaod_image(image_src, file_name);
                             question_text = question_text + `\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${file_name}.png}\n\\end{center}`
@@ -51,7 +47,6 @@ const read_content = async function() {
                             question_text = question_text + "$" + String(child.textContent) + "$"
                         }
                         console.log(child.nodeName)
-                        // console.log(words.childNodes[g].textContent)
                     }
                 }
             }

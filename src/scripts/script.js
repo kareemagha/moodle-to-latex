@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+require('dotenv').config();
 var read_content = function () {
     return __awaiter(this, void 0, void 0, function () {
         var questions, image_counter, question_text, i, j, words, g, child, flag, k, img_element, image_src, file_name, img_element, image_src, file_name;
@@ -49,7 +50,6 @@ var read_content = function () {
                         child = words.childNodes[g];
                         if (child.nodeType === Node.TEXT_NODE) {
                             question_text += child.nodeValue;
-                            // console.log(words.childNodes[g].nodeValue)
                         }
                         else if (child.nodeType === Node.ELEMENT_NODE) {
                             flag = 0;
@@ -89,7 +89,6 @@ var read_content = function () {
                                     question_text = question_text + "$" + String(child.textContent) + "$";
                                 }
                                 console.log(child.nodeName);
-                                // console.log(words.childNodes[g].textContent)
                             }
                         }
                     }
@@ -118,11 +117,11 @@ var upload_image = function (image_src) {
                     image_file = new File([myBlob], 'image.jpeg', { type: myBlob.type });
                     formData = new FormData();
                     formData.append('image', image_file);
-                    formData.append('album', 'sCphDeIvLyBalP0');
+                    formData.append('album', "".concat(process.env.DELETE_HASH));
                     return [4 /*yield*/, fetch('https://api.imgur.com/3/image', {
                             method: 'POST',
                             headers: new Headers({
-                                Authorization: 'Client-ID ff11469576d6967'
+                                Authorization: "Client-ID ".concat(process.env.CLIENT_ID)
                             }),
                             body: formData
                         })];
