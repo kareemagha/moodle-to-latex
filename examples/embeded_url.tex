@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{graphicx} % To include images
+\usepackage{grffile}  % Handle spaces in filenames
+
+\begin{document}
+
+Here is an image from a URL:
+
+\immediate\write18{curl -o img.png https://i.imgur.com/cC683UH.png} % Download the image
+\includegraphics[width=\textwidth]{img.png}
+
+
+\immediate\write18{curl -o img.png https://i.imgur.com/cC683UH.png} % Download the image
+\includegraphics[width=\textwidth]{img.png}
+
+\end{document}
