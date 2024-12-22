@@ -2,6 +2,7 @@
 
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs'
 
 import { chromeExtension, simpleReloader } from 'rollup-plugin-chrome-extension'
 
@@ -17,6 +18,7 @@ export default {
     simpleReloader(),
     // the plugins below are optional
     resolve(),
-    typescript()
+    typescript(),
+    commonjs()
   ],
 }

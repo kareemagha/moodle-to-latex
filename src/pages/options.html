@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options</title>
+    <script src="options.js"></script>
+   
+</head>
+<body>
+   <span id="options">
+    <div id="control">
+        Extension state: 
+        <label class="radio">
+            <input type="radio" name="answer" id="yes">
+            On
+        </label>
+        <label class="radio">
+            <input type="radio" name="answer" id="no">
+            Off
+        </label>
+    </div>
+
+    <hr>
+
+    <div id="image-options">
+        <label class="radio">
+            <input type="radio" name="image-option" value="download" id="download"> Download to default location <br>
+        </label>
+        <label class="radio">
+            <input type="radio" name="image-option" value="upload" id="upload"> Upload to Imgur
+        </label>
+
+        <!-- Input fields for Imgur option, hidden by default -->
+        <div id="imgur-fields" style="display: none;">
+            <label for="delete-hash">Delete Hash:</label>
+            <input type="text" id="delete-hash" name="delete-hash">
+
+            <label for="client-id">Client ID:</label>
+            <input type="text" id="client-id" name="client-id">
+        </div>
+    </div>
+
+    <br>
+
+    <button id="save">Save Options</button>
+    <div id="status"></div>
+</span>
+
+</body>
+
+</html>
+

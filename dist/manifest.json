@@ -3,6 +3,9 @@
   "name": "moodle-to-latex",
   "version": "2.1.0",
   "description": "",
+  "options_ui": {
+    "page": "pages/options.html"
+  },
   "content_scripts": [
     {
       "js": [
@@ -13,6 +16,11 @@
       ],
       "run_at": "document_end"
     }
+  ],
+  "permissions": [
+    "downloads",
+    "activeTab",
+    "storage"
   ],
   "web_accessible_resources": [
     {

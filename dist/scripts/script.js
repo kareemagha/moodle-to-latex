@@ -25,7 +25,7 @@ const downlaod_image = function (url, filename) {
 };
 
 const saveText = function (input_text) {
-    const ignoreList = ["Question:", "", " "];
+    const ignoreList = ["Question:", ""];
     if (ignoreList.includes(input_text)) {
         return false;
     }
