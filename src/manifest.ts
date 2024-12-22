@@ -12,7 +12,11 @@ const manifest: ManifestV3 = {
         run_at: "document_end"
     },
   ],
-  permissions: ["downloads", "activeTab", "storage"]
+  permissions: ["downloads", "activeTab", "storage"],
+   
+  action: {
+   default_popup: "pages/options.html"
+ }
 }
 
 export default manifest

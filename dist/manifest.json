@@ -22,6 +22,9 @@
     "activeTab",
     "storage"
   ],
+  "action": {
+    "default_popup": "pages/options.html"
+  },
   "web_accessible_resources": [
     {
       "resources": [
