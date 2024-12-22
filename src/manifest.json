@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "moodle-to-latex",
+  "description": "translates moodle html to latex syntax",
+  "version": "2.1",
+  "content_scripts": [
+    {
+      "js": ["scripts/helpers/download_image.js", "scripts/script.js"],
+      "matches": ["https://moodle.telt.unsw.edu.au/mod/quiz/*"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["build/src/scripts/script.js", "build/src/scripts/helpers/download_image.js"]
+    }
+  ],
+
+  "permissions": ["downloads", "activeTab"]
+}
