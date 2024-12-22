@@ -102,4 +102,18 @@ const recursiveSearch = function recSer(child, question_text, image_counter, dep
     return returnObject;
 };
 console.log("Script loaded");
-read_content();
+(function () {
+    chrome.storage.sync.get(['imageOption', 'deleteHash', 'clientId', 'extensionState'], (items) => {
+        const imageOption = items.imageOption;
+        const deleteHash = items.deleteHash;
+        const clientId = items.clientId;
+        const extensionState = items.extensionState;
+        console.log('Image Option:', imageOption);
+        console.log('Delete Hash:', deleteHash);
+        console.log('Client ID:', clientId);
+        console.log('Extension State:', extensionState);
+        if (extensionState === "on") {
+            read_content();
+        }
+    });
+})();

@@ -3,18 +3,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Options</title>
     <script src="options.js" type="module"></script>
+    <style>
+        body {
+            overflow-y: auto;  /* Enable vertical scrolling */
+            padding: 10px;     /* Optional: Add some padding for better appearance */
+            max-height: 100vh; /* Prevent overflow outside the viewport */
+            box-sizing: border-box; /* Ensure padding is included in the element's total size */
+            min-width: 300px;
+        }
+    </style>
    
 </head>
-<body>
+
+<body style="width: 100%;"><div>
+    <h2 style="margin: 0;">
+        <strong>
+            moodle-to-latex
+        </strong>
+        <a href="https://github.com/kareemagha/moodle-to-latex/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 10px;">
+        </a>
+    </h2>
+</div>
+
+
+
+
    <span id="options">
     <div id="control">
         Extension state: 
         <label class="radio">
-            <input type="radio" name="answer" id="yes">
+            <input type="radio" name="answer" id="on">
             On
         </label>
         <label class="radio">
-            <input type="radio" name="answer" id="no">
+            <input type="radio" name="answer" id="off">
             Off
         </label>
     </div>
