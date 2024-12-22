@@ -10,12 +10,6 @@
       "run_at": "document_end"
     }
   ],
-  "web_accessible_resources": [
-    {
-      "matches": ["<all_urls>"],
-      "resources": ["build/src/scripts/script.js", "build/src/scripts/helpers/download_image.js"]
-    }
-  ],
 
-  "permissions": ["downloads", "activeTab"]
+  "permissions": ["downloads", "activeTab", "storage"]
 }
