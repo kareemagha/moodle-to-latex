@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "moodle-to-latex",
+  "version": "2.1.0",
+  "description": "",
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/import-script.js"
+      ],
+      "matches": [
+        "https://moodle.telt.unsw.edu.au/mod/quiz/*"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "chunks/*-*.js",
+        "scripts/script.js"
+      ],
+      "matches": [
+        "https://moodle.telt.unsw.edu.au/*"
+      ]
+    }
+  ]
+}
