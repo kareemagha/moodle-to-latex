@@ -7,7 +7,7 @@ interface ReturnedObject {
     imageCounter: number;
 }
 
-const read_content = function() {
+const read_content = async function(imageOption: string, clientId: string, deleteHash: string) {
     const questions = document.getElementsByClassName("filter_mathjaxloader_equation")
     console.log(questions.length)
     let image_counter = 0
@@ -23,9 +23,9 @@ const read_content = function() {
                 if (child.nodeType === Node.TEXT_NODE && child.nodeValue?.trim() !== "") {
                     question_text += child.nodeValue
                 } else if (child.nodeType === Node.ELEMENT_NODE) {
-                    let recSerObj = recursiveSearch(child, question_text, image_counter, 0)
-                    question_text = recSerObj.questionText
-                    image_counter = recSerObj.imageCounter
+                    let recSerObj = recursiveSearch(child, question_text, image_counter, 0, imageOption, clientId, deleteHash)
+                    question_text = (await recSerObj).questionText
+                    image_counter = (await recSerObj).imageCounter
                     console.log(child.nodeName)
                 }
             }
@@ -39,7 +39,7 @@ const read_content = function() {
 } 
 
 
-const recursiveSearch = function recSer(child: ChildNode, question_text: string, image_counter: number, depth: number) {
+const recursiveSearch = async function recSer(child: ChildNode, question_text: string, image_counter: number, depth: number, imageOption: string, clientId: string, deleteHash: string) {
     if (child.nodeName === "STRONG" && child.textContent != "") {
         question_text = question_text + "\\textbf{" + child.textContent + "}"
     } else if (child.nodeName === "IMG") {
@@ -47,8 +47,14 @@ const recursiveSearch = function recSer(child: ChildNode, question_text: string,
         const image_src = img_element.src;
         if (child instanceof Element && !child.classList.contains('texrender')) {
             let file_name = `${Date.now()}_${image_counter}`;
-            downlaod_image(image_src, file_name);
-            question_text = question_text + `\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${file_name}.png}\n\\end{center}`;
+            if(imageOption === "download") {
+                downlaod_image(image_src, file_name);
+                question_text = question_text + `\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${file_name}.png}\n\\end{center}`;
+            } else if (imageOption === "upload") {
+                let imageURL = await upload_image(image_src, clientId, deleteHash)
+                console.log(imageURL)
+                question_text = question_text + `\\immediate\\write18{curl -o ${file_name}.png ${imageURL}}\n\\begin{center}\n\t\\includegraphics[width=0.8\\textwidth]{${file_name}.png}\n\\end{center}`
+            }
             image_counter++;
         }
     } else if (child.nodeName === "INPUT") {
@@ -66,9 +72,9 @@ const recursiveSearch = function recSer(child: ChildNode, question_text: string,
     
     if (child.childNodes.length > 0) {
         for(let i = 0; i < child.childNodes.length; i++) {
-            let returnedObject_1 = recSer(child.childNodes[i], question_text, image_counter, depth + 1)
-            image_counter = returnedObject_1.imageCounter
-            question_text = returnedObject_1.questionText
+            let returnedObject_1 = recSer(child.childNodes[i], question_text, image_counter, depth + 1, imageOption, clientId, deleteHash)
+            image_counter = (await returnedObject_1).imageCounter
+            question_text = (await returnedObject_1).questionText
         }
         returnObject.questionText = question_text
         returnObject.imageCounter = image_counter
@@ -91,7 +97,7 @@ console.log("Script loaded");
         console.log('Extension State:', extensionState);
 
         if (extensionState === "on") {
-            read_content();
+            read_content(imageOption, deleteHash, clientId);
         }
     });
 })();

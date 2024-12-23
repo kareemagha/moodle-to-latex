@@ -1,6 +1,4 @@
-require('dotenv').config()
-
-export const upload_image = async function(image_src: string): Promise<string> {
+export const upload_image = async function(image_src: string, clientId: string, deleteHash: string): Promise<string> {
     try {
         const res = await fetch(image_src);
         const myBlob = await res.blob();
@@ -8,12 +6,12 @@ export const upload_image = async function(image_src: string): Promise<string> {
         const image_file = new File([myBlob], 'image.jpeg', {type: myBlob.type});
         const formData = new FormData();
         formData.append('image', image_file);
-        formData.append('album', `${process.env.DELETE_HASH}`);
+        formData.append('album', `${deleteHash}`);
         
         const response = await fetch('https://api.imgur.com/3/image', {
             method: 'POST',
             headers: new Headers({
-                Authorization: `Client-ID ${process.env.CLIENT_ID}`
+                Authorization: `Client-ID ${clientId}`
             }),
             body: formData
         });
