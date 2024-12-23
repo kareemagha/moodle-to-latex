@@ -19,11 +19,11 @@ const read_content = async function(imageOption: string, clientId: string, delet
         for (let j = 0; j < questions[i].getElementsByTagName("p").length; j++) {
             const words = questions[i].getElementsByTagName("p")[j]
             for(let g = 0; g < words.childNodes.length; g++) {
-                let child = words.childNodes[g]
+                const child = words.childNodes[g]
                 if (child.nodeType === Node.TEXT_NODE && child.nodeValue?.trim() !== "") {
                     question_text += child.nodeValue
                 } else if (child.nodeType === Node.ELEMENT_NODE) {
-                    let recSerObj = recursiveSearch(child, question_text, image_counter, 0, imageOption, clientId, deleteHash)
+                    const recSerObj = recursiveSearch(child, question_text, image_counter, 0, imageOption, clientId, deleteHash)
                     question_text = (await recSerObj).questionText
                     image_counter = (await recSerObj).imageCounter
                     console.log(child.nodeName)
@@ -46,12 +46,12 @@ const recursiveSearch = async function recSer(child: ChildNode, question_text: s
         const img_element = child as HTMLImageElement;
         const image_src = img_element.src;
         if (child instanceof Element && !child.classList.contains('texrender')) {
-            let file_name = `${Date.now()}_${image_counter}`;
+            const file_name = `${Date.now()}_${image_counter}`;
             if(imageOption === "download") {
                 downlaod_image(image_src, file_name);
                 question_text = question_text + `\\begin{center}\n\\includegraphics[width=0.8\\textwidth]{images/${file_name}.png}\n\\end{center}`;
             } else if (imageOption === "upload") {
-                let imageURL = await upload_image(image_src, clientId, deleteHash)
+                const imageURL = await upload_image(image_src, clientId, deleteHash)
                 console.log(imageURL)
                 question_text = question_text + `\\immediate\\write18{curl -o ${file_name}.png ${imageURL}}\n\\begin{center}\n\t\\includegraphics[width=0.8\\textwidth]{${file_name}.png}\n\\end{center}`
             }
@@ -65,14 +65,14 @@ const recursiveSearch = async function recSer(child: ChildNode, question_text: s
         }
     }
 
-    let returnObject: ReturnedObject = {
+    const returnObject: ReturnedObject = {
         questionText: question_text,
         imageCounter: image_counter,
     }
     
     if (child.childNodes.length > 0) {
         for(let i = 0; i < child.childNodes.length; i++) {
-            let returnedObject_1 = recSer(child.childNodes[i], question_text, image_counter, depth + 1, imageOption, clientId, deleteHash)
+            const returnedObject_1 = recSer(child.childNodes[i], question_text, image_counter, depth + 1, imageOption, clientId, deleteHash)
             image_counter = (await returnedObject_1).imageCounter
             question_text = (await returnedObject_1).questionText
         }
