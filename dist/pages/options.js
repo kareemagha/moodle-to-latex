@@ -23,7 +23,7 @@ const saveOptions = () => {
 
 const restoreOptions = () => {
     chrome.storage.sync.get(
-        { imageOption: 'download', deleteHash: '', clientId: '', extensionState: 'yes' },
+        { imageOption: 'download', deleteHash: '', clientId: '', extensionState: 'on' },
         (items) => {
             if (items.imageOption === 'upload') {
                 document.getElementById('upload').checked = true;
@@ -35,7 +35,7 @@ const restoreOptions = () => {
             document.getElementById('delete-hash').value = items.deleteHash;
             document.getElementById('client-id').value = items.clientId;
 
-            if (items.extensionState === 'yes') {
+            if (items.extensionState === 'on') {
                 document.getElementById('on').checked = true;
             } else {
                 document.getElementById('off').checked = true;
