@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "moodle-to-latex",
+  "version": "2.1.0",
+  "description": "",
+  "options_ui": {
+    "page": "pages/options.html"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/import-script.js"
+      ],
+      "matches": [
+        "https://moodle.telt.unsw.edu.au/mod/quiz/*"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "downloads",
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "pages/options.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "chunks/*-*.js",
+        "scripts/script.js"
+      ],
+      "matches": [
+        "https://moodle.telt.unsw.edu.au/*"
+      ]
+    }
+  ]
+}

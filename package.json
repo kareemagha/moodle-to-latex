@@ -1,13 +1,38 @@
 {
+  "name": "moodle-to-latex",
+  "version": "2.1.0",
+  "description": "",
+  "main": "index.js",
   "type": "module",
-  "dependencies": {
-    "chrome-types": "^0.1.324",
-    "dotenv": "^16.4.7",
-    "tsc": "^2.0.4"
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [],
+  "author": {
+    "name": "Kareem Agha"
+  },
+  "contributors": [],
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/chrome": "^0.0.287",
     "@types/node": "^22.10.2",
+    "rollup": "^4.29.1",
+    "rollup-plugin-chrome-extension": "^3.6.12",
     "typescript": "^5.7.2"
   }
 }

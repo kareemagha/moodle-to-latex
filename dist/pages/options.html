@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options</title>
+    <script src="options.js" type="module"></script>
+    <style>
+        body {
+            overflow-y: auto;
+            padding: 10px;
+            max-height: 100vh;
+            box-sizing: border-box;
+            min-width: 300px;
+        }
+    </style>
+   
+</head>
+
+<body style="width: 100%;"><div>
+    <h2 style="margin: 0;">
+        <strong>
+            moodle-to-latex
+        </strong>
+        <a href="https://github.com/kareemagha/moodle-to-latex/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 10px;">
+        </a>
+    </h2>
+</div>
+
+
+
+
+   <span id="options">
+    <div id="control">
+        Extension state: 
+        <label class="radio">
+            <input type="radio" name="answer" id="on">
+            On
+        </label>
+        <label class="radio">
+            <input type="radio" name="answer" id="off">
+            Off
+        </label>
+    </div>
+
+    <hr>
+
+    <div id="image-options">
+        <label class="radio">
+            <input type="radio" name="image-option" value="download" id="download"> Download to default location <br>
+        </label>
+        <label class="radio">
+            <input type="radio" name="image-option" value="upload" id="upload"> Upload to Imgur
+        </label>
+
+        <!-- Input fields for Imgur option, hidden by default -->
+        <div id="imgur-fields" style="display: none;">
+            <br>
+            <label for="delete-hash">Delete Hash:</label>
+            <input type="text" id="delete-hash" name="delete-hash">
+            <br>
+            <label for="client-id">Client ID:</label>
+            <input type="text" id="client-id" name="client-id">
+        </div>
+    </div>
+
+    <br>
+
+    <button id="save">Save Options</button>
+    <div id="status"></div>
+</span>
+
+
+
+
+
+</body></html>
