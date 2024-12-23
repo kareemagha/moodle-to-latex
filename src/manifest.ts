@@ -16,7 +16,12 @@ const manifest: ManifestV3 = {
    
   action: {
    default_popup: "pages/options.html"
+ },
+
+ icons: {
+  "128": "icon.png"
  }
+
 }
 
 export default manifest
