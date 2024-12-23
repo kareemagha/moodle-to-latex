@@ -1,7 +1,7 @@
 {
   "name": "moodle-to-latex",
   "version": "2.1.0",
-  "description": "",
+  "description": "Converts moodle quiz questions into copy and paste LaTeX syntax",
   "main": "index.js",
   "type": "module",
   "license": "AGPL-version-3.0",
