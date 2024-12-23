@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "moodle-to-latex",
   "version": "2.1.0",
-  "description": "",
+  "description": "Converts moodle quiz questions into copy and paste LaTeX syntax",
   "options_ui": {
     "page": "pages/options.html"
   },
@@ -24,6 +24,9 @@
   ],
   "action": {
     "default_popup": "pages/options.html"
+  },
+  "icons": {
+    "128": "icon.png"
   },
   "web_accessible_resources": [
     {
