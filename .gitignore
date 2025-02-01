@@ -1,2 +1,6 @@
 node_modules/*
 src/scripts/.env
+examples/embeded_url.aux
+examples/embeded_url.log
+examples/embeded_url.synctex.gz
+dist.zip
